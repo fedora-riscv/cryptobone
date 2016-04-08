@@ -142,7 +142,7 @@ fi
 %doc       %{_docdir}/%{name}/src-1.0.1.tgz
 
 %changelog
-* Fri Apr 8 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.1-10
+* Fri Apr 8 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.1-11
 - GUI update
 
 * Fri Apr 8 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.1-10
