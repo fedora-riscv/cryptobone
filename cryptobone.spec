@@ -146,9 +146,6 @@ fi
 - GUI update
 
 * Fri Apr 8 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.1-10
-- GUI update
-
-* Fri Apr 8 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.1-10
 - correct GUI initialization bug
 
 * Sun Apr 3 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.1-9
