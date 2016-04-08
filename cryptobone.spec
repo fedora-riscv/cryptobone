@@ -8,7 +8,7 @@ Summary:    Secure Communication Under Your Control
 Group:      Applications/Internet         
 License:    BSD and MIT     
 URL:        https://crypto-bone.com      
-Source0:    https://crypto-bone.com/release/source/cryptobone-1.0.1.tar.gz       
+Source0:    https://crypto-bone.com/release/source/cryptobone-1.0.1.tar.gz
 
 #BuildArch:  x86_64
 ExclusiveArch: x86_64
