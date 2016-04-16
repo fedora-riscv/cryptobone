@@ -1,17 +1,17 @@
 %global cryptobonedir %{_prefix}/lib/%{name}
 
 Name:       cryptobone
-Version:    1.0.1   
-Release:    11%{?dist}
+Version:    1.0.2   
+Release:    1%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 Group:      Applications/Internet         
 License:    BSD and MIT     
 URL:        https://crypto-bone.com      
-Source0:    https://crypto-bone.com/release/source/cryptobone-1.0.1.tar.gz       
+Source0:    https://crypto-bone.com/release/source/cryptobone-1.0.2.tar.gz       
 
-#BuildArch:  x86_64
-ExclusiveArch: x86_64
+
+ExclusiveArch: x86_64 %(ix86) %(arm)
 
 BuildRequires: libbsd-devel
 BuildRequires: gcc
@@ -34,9 +34,10 @@ Requires: cryptsetup
 Requires: openssh
 Requires: nmap
 
+# If a second Linux computer is used to store the encrypted message keys,
+# this system must use cryptobone-extern instead of cryptobone.
 Conflicts: cryptobone-extern
 
-Provides: bundled(libcl.so) = 3.4.3
 
 %description
 The Crypto Bone is a secure messaging system that makes sure a user's
@@ -48,6 +49,14 @@ While the message keys are secured by a daemon running on the Linux machine,
 additional protection can be achieved by using an external device for storing
 encryption keys. This external device can be another Linux computer dedicated
 to this task or a Beagle Bone or a Raspberry Pi.  (https://crypto-bone.com)
+
+# The cryptobone package uses the cryptlib library as a private library.
+# As the cryptobone is based on only a very small part of cryptlib,
+# essentially the symmetric encryption enveloping only, and because the
+# reduction of complexity is one of cryptobone's main goals, the 
+# software links to a reduced, minimalistic version of cryptlib.
+# Because the fully-fledged cryptlib uses the the name libcl.so this
+# reduced cryptlib uses a different name (libclr.so) to avoid confusion.
 
 
 %prep
@@ -70,7 +79,11 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications -m 644 %{buildro
 # this script is run after the packet's installation 
 if [ $1 -eq 1 ] ; then
      # installation only, not running after update
-     echo
+     if [ -x /usr/sbin/semodule ]; then
+          # only if SELinux is installed, prepare cryptobone.pp
+          /usr/sbin/semodule -i /usr/lib/cryptobone/selinux/cryptobone.pp
+          /usr/sbin/semodule -e cryptobone
+     fi
 fi
 /bin/touch --no-create %{_datadir}/icons/default &>/dev/null || :
 
@@ -106,6 +119,9 @@ if [ $1 -eq 0 ] ; then
      rm -rf %{cryptobonedir} 2> /dev/null > /dev/null
      /bin/touch --no-create %{_datadir}/icons/default &>/dev/null
      /usr/bin/gtk-update-icon-cache %{_datadir}/icons/default &>/dev/null  || :
+     if [ -x /usr/sbin/semodule ]; then
+          semodule -d cryptobone
+     fi
 fi
 
 %posttrans
@@ -133,17 +149,19 @@ fi
 %{_mandir}/man8/openpgp.8.gz
 %{_mandir}/man8/cbcontrol.8.gz
 
-%dir       %{_docdir}/%{name}
-%dir       %{_datadir}/licenses/%{name}
 %license   %{_datadir}/licenses/%{name}/COPYING
 %license   %{_datadir}/licenses/%{name}/COPYING-cryptlib
 %doc       %{_docdir}/%{name}/README
 %doc       %{_docdir}/%{name}/README-cryptlib
-%doc       %{_docdir}/%{name}/src-1.0.1.tgz
+%doc       %{_docdir}/%{name}/src-1.0.2.tgz
 
 %changelog
-* Fri Apr 8 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.1-11
-- GUI update
+
+* Sat Apr 16 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.2-1
+- upgrade to cryptlib-3.4.3 final
+- removing all brainpool crypto code from the cryptlib source code
+- renaming the private cryptlib library to libclr.so
+- adding basic SELinux support
 
 * Fri Apr 8 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.1-10
 - correct GUI initialization bug
