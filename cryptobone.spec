@@ -1,8 +1,9 @@
 %global cryptobonedir %{_prefix}/lib/%{name}
+%global _hardened_build 1
 
 Name:       cryptobone
 Version:    1.0.2   
-Release:    1%{?dist}
+Release:    3%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 Group:      Applications/Internet         
@@ -65,8 +66,7 @@ to this task or a Beagle Bone or a Raspberry Pi.  (https://crypto-bone.com)
 
 %build
 %configure
-make %{?_smp_mflags}
-
+make %{?_smp_mflags} 
 
 %install
 %make_install
@@ -156,6 +156,13 @@ fi
 %doc       %{_docdir}/%{name}/src-1.0.2.tgz
 
 %changelog
+
+* Sun Apr 24 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.2-3
+- update source code 
+
+* Sun Apr 24 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.2-2
+- fixes bug #1329695 (cryptobone is not built with $RPM_OPT_FLAGS)
+- updates cryptobone.png and SELinux policy
 
 * Sat Apr 16 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.2-1
 - upgrade to cryptlib-3.4.3 final
