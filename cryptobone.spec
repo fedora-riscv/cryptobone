@@ -3,7 +3,7 @@
 
 Name:       cryptobone
 Version:    1.0.2   
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 Group:      Applications/Internet         
@@ -156,6 +156,9 @@ fi
 %doc       %{_docdir}/%{name}/src-1.0.2.tgz
 
 %changelog
+
+* Sun Apr 24 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.2-3
+- update source code 
 
 * Sun Apr 24 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.2-2
 - fixes bug #1329695 (cryptobone is not built with $RPM_OPT_FLAGS)
