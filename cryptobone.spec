@@ -2,20 +2,23 @@
 %global _hardened_build 1
 
 Name:       cryptobone
-Version:    1.0.2   
-Release:    3%{?dist}
+Version:    1.0.3   
+Release:    1%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 Group:      Applications/Internet         
 License:    BSD and MIT     
 URL:        https://crypto-bone.com      
-Source0:    https://crypto-bone.com/release/source/cryptobone-1.0.2.tar.gz       
+Source0:    https://crypto-bone.com/release/source/cryptobone-%{version}-1.tar.gz       
+Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}-1.tar.gz.asc
+Source2:    gpgkey-3274CB29956498038A9C874BFBF6E2C28E9C98DD.asc
 
 
 ExclusiveArch: x86_64 %{ix86} %{arm}
 
 BuildRequires: libbsd-devel
 BuildRequires: gcc
+BuildRequires: gnupg2
 BuildRequires: desktop-file-utils
 BuildRequires: systemd
 
@@ -61,12 +64,18 @@ to this task or a Beagle Bone or a Raspberry Pi.  (https://crypto-bone.com)
 
 
 %prep
+KEYRING=$(echo %{SOURCE2})
+KEYRING=${KEYRING%%.asc}.gpg
+mkdir -p .gnupg
+gpg2 --homedir .gnupg --no-default-keyring --quiet --yes --output $KEYRING --dearmor  %{SOURCE2}
+gpg2 --homedir .gnupg --no-default-keyring --keyring $KEYRING --verify %{SOURCE1} %{SOURCE0}
 %setup 
 
 
 %build
 %configure
-make %{?_smp_mflags} 
+echo OPTFLAGS: %{optflags}
+make %{?_smp_mflags} ADDFLAGS="%{optflags}"
 
 %install
 %make_install
@@ -153,9 +162,14 @@ fi
 %license   %{_datadir}/licenses/%{name}/COPYING-cryptlib
 %doc       %{_docdir}/%{name}/README
 %doc       %{_docdir}/%{name}/README-cryptlib
-%doc       %{_docdir}/%{name}/src-1.0.2.tgz
+%doc       %{_docdir}/%{name}/src-1.0.3.tgz
 
 %changelog
+
+* Fri May 6 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.3-1
+- extending $RPM_OPT_FLAGS to private cryptlib 
+- adding three patches to cryptlib source code, approved by Peter Gutmann
+- adding GPG source code signature check
 
 * Sun Apr 24 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.2-3
 - update source code 
