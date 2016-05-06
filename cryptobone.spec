@@ -66,8 +66,9 @@ to this task or a Beagle Bone or a Raspberry Pi.  (https://crypto-bone.com)
 %prep
 KEYRING=$(echo %{SOURCE2})
 KEYRING=${KEYRING%%.asc}.gpg
-gpg2 --no-default-keyring --quiet --yes --output $KEYRING --dearmor  %{SOURCE2}
-gpg2 --no-default-keyring --keyring $KEYRING --verify %{SOURCE1} %{SOURCE0}
+mkdir -p .gnupg
+gpg2 --homedir .gnupg --no-default-keyring --quiet --yes --output $KEYRING --dearmor  %{SOURCE2}
+gpg2 --homedir .gnupg --no-default-keyring --keyring $KEYRING --verify %{SOURCE1} %{SOURCE0}
 %setup 
 
 
