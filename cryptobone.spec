@@ -2,17 +2,17 @@
 %global _hardened_build 1
 
 Name:       cryptobone
-Version:    1.0.3   
+Version:    1.0.5   
 Release:    1%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 Group:      Applications/Internet         
-License:    BSD and MIT     
+License:    BSD and Sleepycat and OpenSSL     
 URL:        https://crypto-bone.com      
 Source0:    https://crypto-bone.com/release/source/cryptobone-%{version}-1.tar.gz       
 Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}-1.tar.gz.asc
 Source2:    gpgkey-3274CB29956498038A9C874BFBF6E2C28E9C98DD.asc
-
+Source3:    COPYING
 
 ExclusiveArch: x86_64 %{ix86} %{arm}
 
@@ -32,7 +32,6 @@ Requires: openssh-askpass
 Requires: fetchmail
 Requires: base64
 Requires: MTA 
-#Suggests: postfix
 Requires: socat
 Requires: cryptsetup
 Requires: openssh
@@ -82,6 +81,9 @@ make %{?_smp_mflags} ADDFLAGS="%{optflags}"
 mkdir -p %{buildroot}%{_datadir}/icons/default
 cp %{buildroot}%{cryptobonedir}/GUI/cryptobone.png %{buildroot}%{_datadir}/icons/default
 desktop-file-install --dir %{buildroot}%{_datadir}/applications -m 644 %{buildroot}%{cryptobonedir}/GUI/cryptobone.desktop
+# apply the new COPYING file
+cp %{SOURCE3} %{buildroot}%{_datadir}/licenses/%{name}/COPYING-cryptlib
+cp %{SOURCE3} %{buildroot}%{cryptobonedir}/COPYING-cryptlib
 
 
 %post
@@ -155,16 +157,22 @@ fi
 
 %{_mandir}/man8/cryptoboned.8.gz
 %{_mandir}/man8/cryptobone.8.gz
-%{_mandir}/man8/openpgp.8.gz
 %{_mandir}/man8/cbcontrol.8.gz
 
 %license   %{_datadir}/licenses/%{name}/COPYING
 %license   %{_datadir}/licenses/%{name}/COPYING-cryptlib
 %doc       %{_docdir}/%{name}/README
 %doc       %{_docdir}/%{name}/README-cryptlib
-%doc       %{_docdir}/%{name}/src-1.0.3.tgz
 
 %changelog
+
+* Tue Aug 02 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.5-1
+- correct license tag (RHBZ #1352406)
+- rename cryptlib symbols (RHBZ #1352404)
+- use base64encode and base64decode from cryptlib code
+- reduce cryptlib code in the private library libclr.so
+- move message encryption code inside the cryptobone daemon, remove openpgp binary
+- extend secrets data base
 
 * Fri May 6 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.3-1
 - extending $RPM_OPT_FLAGS to private cryptlib 
