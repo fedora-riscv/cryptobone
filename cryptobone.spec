@@ -2,15 +2,15 @@
 %global _hardened_build 1
 
 Name:       cryptobone
-Version:    1.0.5   
-Release:    1%{?dist}
+Version:    1.1.0   
+Release:    2%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 Group:      Applications/Internet         
 License:    BSD and Sleepycat and OpenSSL     
 URL:        https://crypto-bone.com      
-Source0:    https://crypto-bone.com/release/source/cryptobone-%{version}-1.tar.gz       
-Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}-1.tar.gz.asc
+Source0:    https://crypto-bone.com/release/source/cryptobone-%{version}-%{release}.tar.gz       
+Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}-%{release}.tar.gz.asc
 Source2:    gpgkey-3274CB29956498038A9C874BFBF6E2C28E9C98DD.asc
 Source3:    COPYING
 
@@ -25,22 +25,18 @@ BuildRequires: systemd
 
 Requires: systemd
 Requires: bash    
-Requires: ksh
 Requires: python
 Requires: tkinter
 Requires: openssh-askpass
 Requires: fetchmail
-Requires: base64
+Requires: coreutils
+Requires: rng-tools
 Requires: MTA 
 Requires: socat
 Requires: cryptsetup
 Requires: openssh
 Requires: nmap
-
-# If a second Linux computer is used to store the encrypted message keys,
-# this system must use cryptobone-extern instead of cryptobone.
-Conflicts: cryptobone-extern
-
+Requires: beesu
 
 %description
 The Crypto Bone is a secure messaging system that makes sure a user's
@@ -80,7 +76,9 @@ make %{?_smp_mflags} ADDFLAGS="%{optflags}"
 %make_install
 mkdir -p %{buildroot}%{_datadir}/icons/default
 cp %{buildroot}%{cryptobonedir}/GUI/cryptobone.png %{buildroot}%{_datadir}/icons/default
+cp %{buildroot}%{cryptobonedir}/GUI/external-cryptobone-admin.png %{buildroot}%{_datadir}/icons/default
 desktop-file-install --dir %{buildroot}%{_datadir}/applications -m 644 %{buildroot}%{cryptobonedir}/GUI/cryptobone.desktop
+desktop-file-install --dir %{buildroot}%{_datadir}/applications -m 644 %{buildroot}%{cryptobonedir}/GUI/external-cryptobone-admin.desktop
 # apply the new COPYING file
 cp %{SOURCE3} %{buildroot}%{_datadir}/licenses/%{name}/COPYING-cryptlib
 cp %{SOURCE3} %{buildroot}%{cryptobonedir}/COPYING-cryptlib
@@ -105,13 +103,18 @@ if [ $1 -eq 0 ] ; then
      # removal only, not running before update
      systemctl stop cryptoboned
      systemctl disable cryptoboned
+     systemctl stop cryptoboneexternd
+     systemctl disable cryptoboneexternd
      systemctl disable cryptobone-fetchmail.timer
+     systemctl stop cryptobone-fetchmail.timer
      umount %{cryptobonedir}/keys 2> /dev/null
      rm -f /etc/sudoers.d/cbcontrol
      if [ -f %{cryptobonedir}/bootswitch ] ; then
           chattr -i %{cryptobonedir}/bootswitch
      fi
-     rm -rf /dev/shm/RAM
+     rm -rf /dev/shm/RAM 2>/dev/null
+     rm -rf /dev/shm/EXRAM 2>/dev/null
+     /usr/sbin/userdel cryptobone
      # delete all config files in main cryptobone directory
      rm -rf %{cryptobonedir}/keys/* 2> /dev/null
      rm -rf %{cryptobonedir}/cryptobone/* 2> /dev/null
@@ -137,13 +140,21 @@ fi
 
 %posttrans
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/default &>/dev/null || :
+if grep cryptobone /etc/passwd >/dev/null 2>/dev/null; then
+     # update permissions on cryptobone's home directory and shell
+     chown cryptobone /usr/lib/cryptobone /usr/lib/cryptobone/ext
+     chown cryptobone /usr/lib/cryptobone/ext/cryptoboneshell
+fi
 
 
 %files
 %{_unitdir}/cryptoboned.service
+%{_unitdir}/cryptobone-dbinit.service
+%{_unitdir}/cryptoboneexternd.service
 %{_unitdir}/cryptobone-fetchmail.service
 %{_unitdir}/cryptobone-fetchmail.timer
 %{_bindir}/cryptobone
+%{_bindir}/external-cryptobone-admin
 
 # The directory %{cryptobonedir} contains security-critical files that need to be
 # protected from being accessed by non-root users. In addition to restricting the
@@ -153,10 +164,13 @@ fi
 %{cryptobonedir}
 
 %{_datadir}/applications/cryptobone.desktop
+%{_datadir}/applications/external-cryptobone-admin.desktop
 %{_datadir}/icons/default/cryptobone.png
+%{_datadir}/icons/default/external-cryptobone-admin.png
 
 %{_mandir}/man8/cryptoboned.8.gz
 %{_mandir}/man8/cryptobone.8.gz
+%{_mandir}/man8/external-cryptobone-admin.8.gz
 %{_mandir}/man8/cbcontrol.8.gz
 
 %license   %{_datadir}/licenses/%{name}/COPYING
@@ -165,6 +179,26 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+
+* Tue Nov 08 2016 Senderek Web Security <innovation@senderek.ie> - 1.1.0-2
+- enable bidirectional ssh in firewall script to support IP scan
+
+* Sat Nov 05 2016 Senderek Web Security <innovation@senderek.ie> - 1.1.0-1
+- full redesign of the GUI
+- update selinux module for external cryptobone
+- add cryptobone-dbinit.service unit with CRYPT_RANDOM_SLOWPOLL
+
+* Mon Sep 05 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.6-3
+- fix bug in daemon start script
+- rename signed source file
+
+* Mon Sep 05 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.6-2
+- substitute ksh by bash
+- remove obsolete dependencies
+
+* Sat Aug 27 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.6-1
+- adding the external cryptobone daemon
+- remove conflict tag, as external cryptobone code is now distributed in this package
 
 * Tue Aug 02 2016 Senderek Web Security <innovation@senderek.ie> - 1.0.5-1
 - correct license tag (RHBZ #1352406)
