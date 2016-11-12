@@ -1,5 +1,5 @@
-5a803bd3625ccf7beecd960edd45e9ee  cryptobone-1.0.5-1.tar.gz
-7dabfe4d125418060797be8e9357ecfe  cryptobone-1.0.5-1.tar.gz.asc
-e279ef1b782ef71d4d0249381bb006fd  renamesymbols
 3b7a240d7b1fe6702ec39a22bf1ce39f  COPYING
-3eb47c4494d35c5ad1d2cb803eb24260  cryptobone.spec
+e279ef1b782ef71d4d0249381bb006fd  renamesymbols
+ee2d53f0aca408da380df332822f2049  cryptobone.spec
+c93cdd9149c5d4dee33f9dcf78c8f491  cryptobone-1.1.0-2.fc24.tar.gz
+896af5e3b5c544388da165fd3cedb690  cryptobone-1.1.0-2.fc24.tar.gz.asc
