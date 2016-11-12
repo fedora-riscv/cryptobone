@@ -1,5 +1,11 @@
 3b7a240d7b1fe6702ec39a22bf1ce39f  COPYING
 e279ef1b782ef71d4d0249381bb006fd  renamesymbols
+<<<<<<< HEAD
 3eb47c4494d35c5ad1d2cb803eb24260  cryptobone.spec
 c93cdd9149c5d4dee33f9dcf78c8f491  cryptobone-1.1.0-2.fc25.tar.gz
 896af5e3b5c544388da165fd3cedb690  cryptobone-1.1.0-2.fc25.tar.gz.asc
+=======
+ee2d53f0aca408da380df332822f2049  cryptobone.spec
+c93cdd9149c5d4dee33f9dcf78c8f491  cryptobone-1.1.0-2.fc26.tar.gz
+896af5e3b5c544388da165fd3cedb690  cryptobone-1.1.0-2.fc26.tar.gz.asc
+>>>>>>> master
