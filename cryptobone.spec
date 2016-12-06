@@ -2,8 +2,8 @@
 %global _hardened_build 1
 
 Name:       cryptobone
-Version:    1.1.0   
-Release:    2%{?dist}
+Version:    1.1.1   
+Release:    1%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 Group:      Applications/Internet         
@@ -36,7 +36,7 @@ Requires: socat
 Requires: cryptsetup
 Requires: openssh
 Requires: nmap
-Requires: beesu
+Requires: polkit
 
 %description
 The Crypto Bone is a secure messaging system that makes sure a user's
@@ -153,7 +153,9 @@ fi
 %{_unitdir}/cryptoboneexternd.service
 %{_unitdir}/cryptobone-fetchmail.service
 %{_unitdir}/cryptobone-fetchmail.timer
+%{_bindir}/activate-cryptobone
 %{_bindir}/cryptobone
+%{_bindir}/external-cryptobone
 %{_bindir}/external-cryptobone-admin
 
 # The directory %{cryptobonedir} contains security-critical files that need to be
@@ -179,6 +181,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+
+* Sun Dec 04 2016 Senderek Web Security <innovation@senderek.ie> - 1.1.1-1
+- switch from retired beesu to polkit in GUI code
 
 * Tue Nov 08 2016 Senderek Web Security <innovation@senderek.ie> - 1.1.0-2
 - enable bidirectional ssh in firewall script to support IP scan
