@@ -3,7 +3,7 @@
 
 Name:       cryptobone
 Version:    1.1.1   
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 Group:      Applications/Internet         
@@ -142,8 +142,8 @@ fi
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/default &>/dev/null || :
 if grep cryptobone /etc/passwd >/dev/null 2>/dev/null; then
      # update permissions on cryptobone's home directory and shell
-     chown cryptobone /usr/lib/cryptobone /usr/lib/cryptobone/ext
-     chown cryptobone /usr/lib/cryptobone/ext/cryptoboneshell
+     chown cryptobone %{cryptobonedir} %{cryptobonedir}/ext
+     chown cryptobone %{cryptobonedir}/ext/cryptoboneshell
 fi
 
 
@@ -158,7 +158,7 @@ fi
 %{_bindir}/external-cryptobone
 %{_bindir}/external-cryptobone-admin
 
-# The directory %{cryptobonedir} contains security-critical files that need to be
+# The directory %%{cryptobonedir} contains security-critical files that need to be
 # protected from being accessed by non-root users. In addition to restricting the
 # main cryptobone directory to root-access, certain files will also have 0700 mode
 # to ensure that they are protected even if (accidentally) the directory permission
@@ -172,7 +172,9 @@ fi
 
 %{_mandir}/man8/cryptoboned.8.gz
 %{_mandir}/man8/cryptobone.8.gz
+%{_mandir}/man8/activate-cryptobone.8.gz
 %{_mandir}/man8/external-cryptobone-admin.8.gz
+%{_mandir}/man8/external-cryptobone.8.gz
 %{_mandir}/man8/cbcontrol.8.gz
 
 %license   %{_datadir}/licenses/%{name}/COPYING
@@ -181,6 +183,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+
+* Tue Dec 13 2016 Senderek Web Security <innovation@senderek.ie> - 1.1.1-2
+- compile initdatabase.c with PIE
 
 * Sun Dec 04 2016 Senderek Web Security <innovation@senderek.ie> - 1.1.1-1
 - switch from retired beesu to polkit in GUI code
