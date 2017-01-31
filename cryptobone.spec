@@ -17,7 +17,7 @@ Source3:    COPYING
 ExclusiveArch: x86_64 %{ix86} %{arm}
 
 BuildRequires: libbsd-devel
-BuildRequires: gcc <= 6.3
+BuildRequires: gcc
 BuildRequires: gnupg2
 BuildRequires: desktop-file-utils
 BuildRequires: systemd
@@ -65,7 +65,6 @@ mkdir -p .gnupg
 gpg2 --homedir .gnupg --no-default-keyring --quiet --yes --output $KEYRING --dearmor  %{SOURCE2}
 gpg2 --homedir .gnupg --no-default-keyring --keyring $KEYRING --verify %{SOURCE1} %{SOURCE0}
 %setup 
-
 
 %build
 %configure
@@ -185,7 +184,7 @@ fi
 %changelog
 
 * Tue Jan 31 2017 Senderek Web Security <innovation@senderek.ie> - 1.1.1-3
-  compile with gcc-6.3
+  compile with gcc-7.0 and -march=native
 
 * Tue Dec 13 2016 Senderek Web Security <innovation@senderek.ie> - 1.1.1-2
 - compile initdatabase.c with PIE
