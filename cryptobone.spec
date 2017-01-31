@@ -17,7 +17,7 @@ Source3:    COPYING
 ExclusiveArch: x86_64 %{ix86} %{arm}
 
 BuildRequires: libbsd-devel
-BuildRequires: gcc <= 6.3
+BuildRequires: gcc = 6.3.1
 BuildRequires: gnupg2
 BuildRequires: desktop-file-utils
 BuildRequires: systemd
