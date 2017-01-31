@@ -17,7 +17,7 @@ Source3:    COPYING
 ExclusiveArch: x86_64 %{ix86} %{arm}
 
 BuildRequires: libbsd-devel
-BuildRequires: gcc
+BuildRequires: gcc <= 6.3
 BuildRequires: gnupg2
 BuildRequires: desktop-file-utils
 BuildRequires: systemd
@@ -183,6 +183,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+
+* Tue Jan 31 2016 Senderek Web Security <innovation@senderek.ie> - 1.1.1-3
+  compile with gcc-6.3
 
 * Tue Dec 13 2016 Senderek Web Security <innovation@senderek.ie> - 1.1.1-2
 - compile initdatabase.c with PIE
