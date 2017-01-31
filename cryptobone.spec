@@ -3,7 +3,7 @@
 
 Name:       cryptobone
 Version:    1.1.1   
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 Group:      Applications/Internet         
