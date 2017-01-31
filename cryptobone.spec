@@ -184,7 +184,7 @@ fi
 
 %changelog
 
-* Tue Jan 31 2016 Senderek Web Security <innovation@senderek.ie> - 1.1.1-3
+* Tue Jan 31 2017 Senderek Web Security <innovation@senderek.ie> - 1.1.1-3
   compile with gcc-6.3
 
 * Tue Dec 13 2016 Senderek Web Security <innovation@senderek.ie> - 1.1.1-2
