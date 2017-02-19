@@ -182,6 +182,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 
 * Sun Feb 19 2017 Senderek Web Security <innovation@senderek.ie> - 1.1.1-4
 - mandatory rebuild, no changes
