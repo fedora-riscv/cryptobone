@@ -14,7 +14,8 @@ Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}-%{relea
 Source2:    gpgkey-3274CB29956498038A9C874BFBF6E2C28E9C98DD.asc
 Source3:    COPYING
 
-ExclusiveArch: x86_64 %{ix86} aarch64
+ExclusiveArch: x86_64 %{ix86} 
+# no aarch64 yet, bignum code does not compile
 
 BuildRequires: libbsd-devel
 BuildRequires: gcc
@@ -183,7 +184,7 @@ fi
 
 %changelog
 * Wed Jul 05 2017 Senderek Web Security <innovation@senderek.ie> - 1.1.1-6
-- update aarch64
+- exclude aarch64
 
 * Sun Feb 19 2017 Senderek Web Security <innovation@senderek.ie> - 1.1.1-5
 - mandatory rebuild, no changes
