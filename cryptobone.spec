@@ -3,7 +3,7 @@
 
 Name:       cryptobone
 Version:    1.1.1   
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 Group:      Applications/Internet         
@@ -14,7 +14,7 @@ Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}-%{relea
 Source2:    gpgkey-3274CB29956498038A9C874BFBF6E2C28E9C98DD.asc
 Source3:    COPYING
 
-ExclusiveArch: x86_64 %{ix86} %{arm}
+ExclusiveArch: x86_64 %{ix86} aarch64
 
 BuildRequires: libbsd-devel
 BuildRequires: gcc
@@ -182,6 +182,8 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Wed Jul 05 2017 Senderek Web Security <innovation@senderek.ie> - 1.1.1-6
+- update aarch64
 
 * Sun Feb 19 2017 Senderek Web Security <innovation@senderek.ie> - 1.1.1-5
 - mandatory rebuild, no changes
@@ -190,7 +192,7 @@ fi
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
 * Tue Jan 31 2017 Senderek Web Security <innovation@senderek.ie> - 1.1.1-3
-  compile with gcc-7.0 and -march=native
+- compile with gcc-7.0 and -march=native
 
 * Tue Dec 13 2016 Senderek Web Security <innovation@senderek.ie> - 1.1.1-2
 - compile initdatabase.c with PIE
