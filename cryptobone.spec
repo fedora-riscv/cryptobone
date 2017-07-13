@@ -1,20 +1,24 @@
 %global cryptobonedir %{_prefix}/lib/%{name}
 %global _hardened_build 1
+%global upstream_ver 1.1.1-6.fc27
 
 Name:       cryptobone
 Version:    1.1.1   
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 Group:      Applications/Internet         
 License:    BSD and Sleepycat and OpenSSL     
 URL:        https://crypto-bone.com      
-Source0:    https://crypto-bone.com/release/source/cryptobone-%{version}-%{release}.tar.gz       
-Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}-%{release}.tar.gz.asc
+Source0:    https://crypto-bone.com/release/source/cryptobone-%{upstream_ver}.tar.gz       
+Source1:    https://crypto-bone.com/release/source/cryptobone-%{upstream_ver}.tar.gz.asc
 Source2:    gpgkey-3274CB29956498038A9C874BFBF6E2C28E9C98DD.asc
 Source3:    COPYING
 
-ExclusiveArch: x86_64 %{ix86} 
+# fix build issue on ppc64/ppc64le
+Patch0:     cryptobone-1.1.1-powerpc.patch
+
+ExclusiveArch: x86_64 %{ix86} ppc64 ppc64le
 # no aarch64 yet, bignum code does not compile
 
 BuildRequires: libbsd-devel
@@ -66,6 +70,7 @@ mkdir -p .gnupg
 gpg2 --homedir .gnupg --no-default-keyring --quiet --yes --output $KEYRING --dearmor  %{SOURCE2}
 gpg2 --homedir .gnupg --no-default-keyring --keyring $KEYRING --verify %{SOURCE1} %{SOURCE0}
 %setup 
+%patch0 -p1 -b .ppc64
 
 %build
 %configure
@@ -183,6 +188,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Thu Jul 13 2017 Than Ngo <than@redhat.com> - 1.1.1-7
+- fix build issue on ppc64/ppc64le
+
 * Wed Jul 05 2017 Senderek Web Security <innovation@senderek.ie> - 1.1.1-6
 - exclude aarch64
 
