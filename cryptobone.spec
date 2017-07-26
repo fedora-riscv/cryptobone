@@ -3,7 +3,7 @@
 
 Name:       cryptobone
 Version:    1.1.1   
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 Group:      Applications/Internet         
@@ -183,6 +183,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Wed Jul 05 2017 Senderek Web Security <innovation@senderek.ie> - 1.1.1-6
 - exclude aarch64
 
