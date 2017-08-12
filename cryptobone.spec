@@ -182,7 +182,7 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
-* Wed Jul 05 2017 Senderek Web Security <innovation@senderek.ie> - 1.1.2-1
+* Sat Aug 12 2017 Senderek Web Security <innovation@senderek.ie> - 1.1.2-1
 - support for aarch64 and powerpc64
 
 * Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-8
