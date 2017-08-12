@@ -2,8 +2,8 @@
 %global _hardened_build 1
 
 Name:       cryptobone
-Version:    1.1.1   
-Release:    8%{?dist}
+Version:    1.1.2   
+Release:    1%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 Group:      Applications/Internet         
@@ -14,8 +14,7 @@ Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}-%{relea
 Source2:    gpgkey-3274CB29956498038A9C874BFBF6E2C28E9C98DD.asc
 Source3:    COPYING
 
-ExclusiveArch: x86_64 %{ix86} 
-# no aarch64 yet, bignum code does not compile
+ExclusiveArch: x86_64 %{ix86} ppc64 ppc64le aarch64
 
 BuildRequires: libbsd-devel
 BuildRequires: gcc
@@ -183,6 +182,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Wed Jul 05 2017 Senderek Web Security <innovation@senderek.ie> - 1.1.2-1
+- support for aarch64 and powerpc64
+
 * Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
