@@ -3,7 +3,7 @@
 
 Name:       cryptobone
 Version:    1.1.2   
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 Group:      Applications/Internet         
@@ -182,6 +182,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
 * Sat Aug 12 2017 Senderek Web Security <innovation@senderek.ie> - 1.1.2-1
 - support for aarch64 and powerpc64
 
