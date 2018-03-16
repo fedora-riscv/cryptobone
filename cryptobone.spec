@@ -3,7 +3,7 @@
 
 Name:       cryptobone
 Version:    1.1.2   
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 Group:      Applications/Internet         
@@ -25,8 +25,8 @@ BuildRequires: systemd
 
 Requires: systemd
 Requires: bash    
-Requires: python
-Requires: tkinter
+Requires: python2
+Requires: python2-tkinter
 Requires: openssh-askpass
 Requires: fetchmail
 Requires: coreutils
@@ -182,6 +182,10 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Tue Mar 13 2018 Iryna Shcherbina <ishcherb@redhat.com> - 1.1.2-3
+- Update Python 2 dependency declarations to new packaging standards
+  (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
+
 * Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
