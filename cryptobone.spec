@@ -83,8 +83,8 @@ cp %{SOURCE3} %{buildroot}%{_datadir}/licenses/%{name}/COPYING-cryptlib
 cp %{SOURCE3} %{buildroot}%{cryptobonedir}/COPYING-cryptlib
 
 # make sure python2 is used in /usr/bin (temporary fix)
-sed -i '1s/python/python2' %{buildroot}/usr/bin/cryptobone
-sed -i '1s/python/python2' %{buildroot}/usr/bin/external-cryptobone-admin
+sed -i '1s/python/python2/' %{buildroot}/usr/bin/cryptobone
+sed -i '1s/python/python2/' %{buildroot}/usr/bin/external-cryptobone-admin
 # remove above asap
 
 %post
