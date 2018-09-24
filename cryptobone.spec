@@ -3,14 +3,14 @@
 
 Name:       cryptobone
 Version:    1.1.2   
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 Group:      Applications/Internet         
 License:    BSD and Sleepycat and OpenSSL     
 URL:        https://crypto-bone.com      
-Source0:    https://crypto-bone.com/release/source/cryptobone-%{version}-%{release}.tar.gz       
-Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}-%{release}.tar.gz.asc
+Source0:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz       
+Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz.asc
 Source2:    gpgkey-3274CB29956498038A9C874BFBF6E2C28E9C98DD.asc
 Source3:    COPYING
 
@@ -82,6 +82,10 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications -m 644 %{buildro
 cp %{SOURCE3} %{buildroot}%{_datadir}/licenses/%{name}/COPYING-cryptlib
 cp %{SOURCE3} %{buildroot}%{cryptobonedir}/COPYING-cryptlib
 
+# make sure python2 is used in /usr/bin (temporary fix)
+sed -i '1s/python/python2' %{buildroot}/usr/bin/cryptobone
+sed -i '1s/python/python2' %{buildroot}/usr/bin/external-cryptobone-admin
+# remove above asap
 
 %post
 # this script is run after the packet's installation 
@@ -182,6 +186,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Mon Sep 24 2018 Ralf Senderek <innovation@senderek.ie> - 1.1.2-5
+- Force python2 execution of scripts
+
 * Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
