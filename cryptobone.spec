@@ -6,7 +6,6 @@ Version:    1.1.2
 Release:    5%{?dist}
 Summary:    Secure Communication Under Your Control      
 
-Group:      Applications/Internet         
 License:    BSD and Sleepycat and OpenSSL     
 URL:        https://crypto-bone.com      
 Source0:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz       
