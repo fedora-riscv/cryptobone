@@ -2,8 +2,8 @@
 %global _hardened_build 1
 
 Name:       cryptobone
-Version:    1.1.2   
-Release:    6%{?dist}
+Version:    1.2   
+Release:    1%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 License:    BSD and Sleepycat and OpenSSL     
@@ -11,7 +11,6 @@ URL:        https://crypto-bone.com
 Source0:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz       
 Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz.asc
 Source2:    gpgkey-3274CB29956498038A9C874BFBF6E2C28E9C98DD.asc
-Source3:    COPYING
 
 ExclusiveArch: x86_64 %{ix86} ppc64 ppc64le aarch64
 
@@ -24,8 +23,8 @@ BuildRequires: systemd
 
 Requires: systemd
 Requires: bash    
-Requires: python2
-Requires: python2-tkinter
+Requires: python3
+Requires: python3-tkinter
 Requires: openssh-askpass
 Requires: fetchmail
 Requires: coreutils
@@ -77,14 +76,6 @@ cp %{buildroot}%{cryptobonedir}/GUI/cryptobone.png %{buildroot}%{_datadir}/icons
 cp %{buildroot}%{cryptobonedir}/GUI/external-cryptobone-admin.png %{buildroot}%{_datadir}/icons/default
 desktop-file-install --dir %{buildroot}%{_datadir}/applications -m 644 %{buildroot}%{cryptobonedir}/GUI/cryptobone.desktop
 desktop-file-install --dir %{buildroot}%{_datadir}/applications -m 644 %{buildroot}%{cryptobonedir}/GUI/external-cryptobone-admin.desktop
-# apply the new COPYING file
-cp %{SOURCE3} %{buildroot}%{_datadir}/licenses/%{name}/COPYING-cryptlib
-cp %{SOURCE3} %{buildroot}%{cryptobonedir}/COPYING-cryptlib
-
-# make sure python2 is used in /usr/bin (temporary fix)
-sed -i '1s/python/python2/' %{buildroot}/usr/bin/cryptobone
-sed -i '1s/python/python2/' %{buildroot}/usr/bin/external-cryptobone-admin
-# remove above asap
 
 %post
 # this script is run after the packet's installation 
@@ -185,6 +176,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Thu Apr 11 2019 Ralf Senderek <innovation@senderek.ie> - 1.2-1
+- Update all scripts to python3 and using new cryptlib-3.4.5 reduced library
+
 * Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
