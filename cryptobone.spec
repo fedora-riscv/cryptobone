@@ -3,7 +3,7 @@
 
 Name:       cryptobone
 Version:    1.2   
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 License:    BSD and Sleepycat and OpenSSL     
@@ -176,6 +176,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
 * Thu Apr 11 2019 Ralf Senderek <innovation@senderek.ie> - 1.2-1
 - Update all scripts to python3 and using new cryptlib-3.4.5 reduced library
 
