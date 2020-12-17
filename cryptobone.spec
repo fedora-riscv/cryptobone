@@ -19,6 +19,7 @@ BuildRequires: gcc
 BuildRequires: gnupg2
 BuildRequires: desktop-file-utils
 BuildRequires: systemd
+BuildRequires: make
 
 
 Requires: systemd
