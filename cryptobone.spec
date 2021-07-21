@@ -3,7 +3,7 @@
 
 Name:       cryptobone
 Version:    1.3   
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 License:    BSD and Sleepycat and OpenSSL     
@@ -177,6 +177,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
 * Fri Jun 25 2021 Ralf Senderek <innovation@senderek.ie> - 1.3-5
 - Fix pthread issue
 
