@@ -178,7 +178,7 @@ fi
 
 %changelog
 * Tue 08 Mar 2022 Ralf Senderek <innovation@senderek.ie> - 1.3-8
-- Fix pthread issue
+- use arch x86-64-v3 instead of native
 
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
