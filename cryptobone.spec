@@ -3,7 +3,7 @@
 
 Name:       cryptobone
 Version:    1.3   
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 License:    BSD and Sleepycat and OpenSSL     
@@ -12,7 +12,7 @@ Source0:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz
 Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz.asc
 Source2:    gpgkey-3274CB29956498038A9C874BFBF6E2C28E9C98DD.asc
 
-ExclusiveArch: x86_64 %{ix86} ppc64 ppc64le aarch64
+ExclusiveArch: x86_64 ppc64le aarch64
 
 BuildRequires: libbsd-devel
 BuildRequires: gcc
@@ -177,6 +177,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Tue 08 Mar 2022 Ralf Senderek <innovation@senderek.ie> - 1.3-8
+- use arch x86-64-v3 instead of native
+
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
