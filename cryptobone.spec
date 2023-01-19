@@ -3,7 +3,7 @@
 
 Name:       cryptobone
 Version:    1.3   
-Release:    10%{?dist}
+Release:    11%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 License:    BSD and Sleepycat and OpenSSL     
@@ -177,6 +177,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Ralf Senderek <innovation@senderek.ie> - 1.3-10
 - Fix dependency change
 
