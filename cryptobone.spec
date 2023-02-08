@@ -2,8 +2,8 @@
 %global _hardened_build 1
 
 Name:       cryptobone
-Version:    1.3   
-Release:    9%{?dist}
+Version:    1.4   
+Release:    2%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 License:    BSD and Sleepycat and OpenSSL     
@@ -20,7 +20,7 @@ BuildRequires: gnupg2
 BuildRequires: desktop-file-utils
 BuildRequires: systemd
 BuildRequires: make
-
+BuildRequires: libmd-devel
 
 Requires: systemd
 Requires: bash    
@@ -177,6 +177,18 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Wed Feb 08 2023 Ralf Senderek <innovation@senderek.ie> - 1.4-2
+- Add connection test
+
+* Fri Feb 03 2023 Ralf Senderek <innovation@senderek.ie> - 1.4-1
+- Resolved [Bug 2166632]
+
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Mon Nov 28 2022 Ralf Senderek <innovation@senderek.ie> - 1.3-10
+- Fix dependency change
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
