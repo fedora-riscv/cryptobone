@@ -3,7 +3,7 @@
 
 Name:       cryptobone
 Version:    1.4   
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 License:    BSD and Sleepycat and OpenSSL     
@@ -177,6 +177,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Wed Feb 08 2023 Ralf Senderek <innovation@senderek.ie> - 1.4-2
+- Add connection test
+
 * Fri Feb 03 2023 Ralf Senderek <innovation@senderek.ie> - 1.4-1
 - Resolved [Bug 2166632]
 
