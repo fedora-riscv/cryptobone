@@ -2,8 +2,8 @@
 %global _hardened_build 1
 
 Name:       cryptobone
-Version:    1.4   
-Release:    2%{?dist}
+Version:    1.5   
+Release:    1%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 License:    BSD and Sleepycat and OpenSSL     
@@ -36,6 +36,8 @@ Requires: cryptsetup
 Requires: openssh
 Requires: nmap
 Requires: polkit
+Requires: postfix
+Requires: msmtp
 
 %description
 The Crypto Bone is a secure messaging system that makes sure a user's
@@ -75,6 +77,7 @@ make %{?_smp_mflags} ADDFLAGS="%{optflags}"
 mkdir -p %{buildroot}%{_datadir}/icons/default
 cp %{buildroot}%{cryptobonedir}/GUI/cryptobone.png %{buildroot}%{_datadir}/icons/default
 cp %{buildroot}%{cryptobonedir}/GUI/external-cryptobone-admin.png %{buildroot}%{_datadir}/icons/default
+cp %{buildroot}%{cryptobonedir}/GUI/question-mark.png %{buildroot}%{_datadir}/icons/default
 desktop-file-install --dir %{buildroot}%{_datadir}/applications -m 644 %{buildroot}%{cryptobonedir}/GUI/cryptobone.desktop
 desktop-file-install --dir %{buildroot}%{_datadir}/applications -m 644 %{buildroot}%{cryptobonedir}/GUI/external-cryptobone-admin.desktop
 
@@ -163,6 +166,7 @@ fi
 %{_datadir}/applications/external-cryptobone-admin.desktop
 %{_datadir}/icons/default/cryptobone.png
 %{_datadir}/icons/default/external-cryptobone-admin.png
+%{_datadir}/icons/default/question-mark.png
 
 %{_mandir}/man8/cryptoboned.8.gz
 %{_mandir}/man8/cryptobone.8.gz
@@ -177,8 +181,8 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
-* Wed Feb 08 2023 Ralf Senderek <innovation@senderek.ie> - 1.4-2
-- Add connection test
+* Tue Feb 28 2023 Ralf Senderek <innovation@senderek.ie> - 1.5-1
+- Update email transport and GUI
 
 * Fri Feb 03 2023 Ralf Senderek <innovation@senderek.ie> - 1.4-1
 - Resolved [Bug 2166632]
