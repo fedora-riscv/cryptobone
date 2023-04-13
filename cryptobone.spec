@@ -2,7 +2,7 @@
 %global _hardened_build 1
 
 Name:       cryptobone
-Version:    1.5   
+Version:    1.5.1   
 Release:    1%{?dist}
 Summary:    Secure Communication Under Your Control      
 
@@ -11,6 +11,7 @@ URL:        https://crypto-bone.com
 Source0:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz       
 Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz.asc
 Source2:    gpgkey-3274CB29956498038A9C874BFBF6E2C28E9C98DD.asc
+Patch1:     fedorapatch
 
 ExclusiveArch: x86_64 ppc64le aarch64
 
@@ -21,7 +22,10 @@ BuildRequires: desktop-file-utils
 BuildRequires: systemd
 BuildRequires: make
 BuildRequires: libmd-devel
+BuildRequires: cryptlib
+BuildRequires: cryptlib-devel
 
+Requires: cryptlib
 Requires: systemd
 Requires: bash    
 Requires: python3
@@ -65,10 +69,15 @@ KEYRING=${KEYRING%%.asc}.gpg
 mkdir -p .gnupg
 gpg2 --homedir .gnupg --no-default-keyring --quiet --yes --output $KEYRING --dearmor  %{SOURCE2}
 gpg2 --homedir .gnupg --no-default-keyring --keyring $KEYRING --verify %{SOURCE1} %{SOURCE0}
+
+
+
 %setup 
+# this patch disables the use of libclr.so.3.4.5
+%patch1 -p1 
 
 %build
-%configure
+
 echo OPTFLAGS: %{optflags}
 make %{?_smp_mflags} ADDFLAGS="%{optflags}"
 
@@ -181,6 +190,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Thu Apr 13 2023 Ralf Senderek <innovation@senderek.ie> - 1.5.1-1
+- update selinux module and use of the cryptlib package 
+
 * Tue Feb 28 2023 Ralf Senderek <innovation@senderek.ie> - 1.5-1
 - Update email transport and GUI
 
