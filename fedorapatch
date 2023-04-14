@@ -1,0 +1,74 @@
+--- original/src/cryptoboned/makefile	2023-04-13 12:12:52.893372388 +0200
++++ patched/src/cryptoboned/makefile	2023-04-13 12:15:51.536929898 +0200
+@@ -1,8 +1,6 @@
+ OPTS=-D__UNIX__ -DNDEBUG -I. -DDATA_LITTLEENDIAN -fPIE -DHAS_RECURSIVE_MUTEX -DHAS_ROBUST_MUTEX -O2 -Wno-pointer-sign -Wno-strict-aliasing -fwrapv -fno-delete-null-pointer-checks -fstack-protector-strong -D_FORTIFY_SOURCE=2 -fomit-frame-pointer -D_REENTRANT
+ 
+ all:
+-	cp ../cl/libcl.so.3.4.5 ./libclr.so.3.4.5;\
+-	ls -l libclr*;\
+-	gcc ${OPTS} ${ADDFLAGS} -Wl,-rpath,/usr/lib/cryptobone -L. -o cryptoboned cryptoboned.c -l:libclr.so.3.4.5 -lbsd; chmod 700 cryptoboned
+-	gcc ${OPTS} ${ADDFLAGS} -Wl,-rpath,/usr/lib/cryptobone -L. -o initdatabase initdatabase.c -l:libclr.so.3.4.5 -lbsd; chmod 700 initdatabase; rm libclr.so.3.4.5
++	gcc ${OPTS} ${ADDFLAGS}  -o cryptoboned cryptoboned.c -l:libcl.so.3.4 -lbsd; chmod 700 cryptoboned
++	gcc ${OPTS} ${ADDFLAGS}  -o initdatabase initdatabase.c -l:libcl.so.3.4 -lbsd; chmod 700 initdatabase
+ 
+--- original/src/cryptoboneexternd/makefile	2023-04-13 12:13:07.160337046 +0200
++++ patched/src/cryptoboneexternd/makefile	2023-04-13 12:16:23.901849730 +0200
+@@ -1,7 +1,5 @@
+ OPTS=-D__UNIX__ -DNDEBUG -I. -DDATA_LITTLEENDIAN -fPIC -DHAS_RECURSIVE_MUTEX -DHAS_ROBUST_MUTEX -O2 -Wno-pointer-sign -Wno-strict-aliasing -fwrapv -fno-delete-null-pointer-checks -fstack-protector-strong -D_FORTIFY_SOURCE=2 -fomit-frame-pointer -D_REENTRANT
+ 
+ all:
+-	cp ../cl/libcl.so.3.4.5 ./libclr.so.3.4.5;\
+-	ls -l libclr* ;\
+-	gcc ${OPTS} ${ADDFLAGS} -Wl,-rpath,/usr/lib/cryptobone -L. -o cryptoboneexternd cryptoboneexternd.c -l:libclr.so.3.4.5 -lbsd; chmod 700 cryptoboneexternd; rm libclr.so.3.4.5
++	gcc ${OPTS} ${ADDFLAGS}  -o cryptoboneexternd cryptoboneexternd.c -l:libcl.so.3.4 -lbsd; chmod 700 cryptoboneexternd
+ 
+--- original/Makefile	2023-04-13 12:14:01.443202594 +0200
++++ patched/Makefile	2023-04-13 12:18:43.642503603 +0200
+@@ -1,5 +1,4 @@
+ all:
+-	make clr;\
+ 	make cryptoboned ; \
+ 	make cryptoboneexternd ; \
+ 
+@@ -9,20 +8,6 @@
+ 	rm cryptoboned ; \
+ 	make ;\
+ 	ls -l cryptoboned initdatabase;
+-clr:
+-	cd src/cl ;\
+-	unzip -a ../cl345_fedora.zip ;\
+-	cp ../cl-patched/makefile . ;\
+-	cp ../cl-patched/tools/ccopts.sh ./tools ;\
+-	echo "setting soname = libclr.so.3.4  ... (tools/buildsharedlib.sh)";\
+-	cp ../cl-patched/tools/buildsharedlib.sh ./tools ;\
+-	cp ../cl-patched/misc/config.h ./misc ;\
+-	cp ../cl-patched/kernel/thread.h ./kernel ;\
+-	echo "renaming symbols ... (tools/rename.sh)";\
+-	chmod +x tools/rename.sh;\
+-	tools/rename.sh;\
+-	make shared ;\
+-	ls -l libcl.so*;
+ 
+ cryptoboneexternd:
+ 	cd src/cryptoboneexternd ;\
+@@ -35,18 +20,16 @@
+ 	cd src ;\
+ 	rm -rf cl/* ;\
+ 	cd .. ;\
+-        rm -f src/cryptoboned/cryptoboned src/cryptoboned/initdatabase src/cryptoboneexternd/cryptoboneexternd  src/cryptoboned/libclr.so.3.4.5 2> /dev/null ;\
++        rm -f src/cryptoboned/cryptoboned src/cryptoboned/initdatabase src/cryptoboneexternd/cryptoboneexternd   2> /dev/null ;\
+ 
+ install:
+ 	cp src/cryptoboned/cryptoboned usr/lib/cryptobone ; \
+ 	cp src/cryptoboned/initdatabase usr/lib/cryptobone ; \
+ 	mkdir usr/lib/cryptobone/ext ;\
+ 	cp src/cryptoboneexternd/cryptoboneexternd usr/lib/cryptobone/ext ; \
+-	cp src/cl/libcl.so.3.4.5 usr/lib/cryptobone/libclr.so.3.4.5 ; \
+ 	cd usr/lib/cryptobone ; \
+-	ln -s libclr.so.3.4.5 libclr.so.3.4 ;\
+ 	cd ../../.. ; \
+-	ls -l usr/lib/cryptobone/cryptoboned usr/lib/cryptobone/initdatabase usr/lib/cryptobone/ext/cryptoboneexternd usr/lib/cryptobone/libclr.so.3.4.5 usr/lib/cryptobone/libclr.so.3.4;\
++	ls -l usr/lib/cryptobone/cryptoboned usr/lib/cryptobone/initdatabase usr/lib/cryptobone/ext/cryptoboneexternd ;\
+         # create fingerprints
+ 	rm usr/lib/cryptobone/fingerprints 2> /dev/null ; \
+ 	date > fingerprints ;\
