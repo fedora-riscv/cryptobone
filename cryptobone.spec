@@ -2,7 +2,7 @@
 %global _hardened_build 1
 
 Name:       cryptobone
-Version:    1.5.1   
+Version:    1.6   
 Release:    1%{?dist}
 Summary:    Secure Communication Under Your Control      
 
@@ -26,6 +26,7 @@ BuildRequires: cryptlib
 BuildRequires: cryptlib-devel
 
 Requires: cryptlib
+Requires: cryptlib-python3
 Requires: systemd
 Requires: bash    
 Requires: python3
@@ -74,7 +75,7 @@ gpg2 --homedir .gnupg --no-default-keyring --keyring $KEYRING --verify %{SOURCE1
 
 %setup 
 # this patch disables the use of libclr.so.3.4.5
-%patch1 -p1 
+%patch1 -p1
 
 %build
 
@@ -85,9 +86,13 @@ make %{?_smp_mflags} ADDFLAGS="%{optflags}"
 %make_install
 mkdir -p %{buildroot}%{_datadir}/icons/default
 cp %{buildroot}%{cryptobonedir}/GUI/cryptobone.png %{buildroot}%{_datadir}/icons/default
+cp %{buildroot}%{cryptobonedir}/GUI/cryptobone-safewebdrop.png %{buildroot}%{_datadir}/icons/default
+cp %{buildroot}%{cryptobonedir}/GUI/logo-cryptobone.png %{buildroot}%{_datadir}/icons/default
+cp %{buildroot}%{cryptobonedir}/GUI/logo-cryptobone-safewebdrop.png %{buildroot}%{_datadir}/icons/default
 cp %{buildroot}%{cryptobonedir}/GUI/external-cryptobone-admin.png %{buildroot}%{_datadir}/icons/default
 cp %{buildroot}%{cryptobonedir}/GUI/question-mark.png %{buildroot}%{_datadir}/icons/default
-desktop-file-install --dir %{buildroot}%{_datadir}/applications -m 644 %{buildroot}%{cryptobonedir}/GUI/cryptobone.desktop
+desktop-file-install --dir %{buildroot}%{_datadir}/applications -m 644 %{buildroot}%{cryptobonedir}/GUI/cryptobone-email.desktop
+desktop-file-install --dir %{buildroot}%{_datadir}/applications -m 644 %{buildroot}%{cryptobonedir}/GUI/cryptobone-safewebdrop.desktop
 desktop-file-install --dir %{buildroot}%{_datadir}/applications -m 644 %{buildroot}%{cryptobonedir}/GUI/external-cryptobone-admin.desktop
 
 %post
@@ -160,7 +165,8 @@ fi
 %{_unitdir}/cryptobone-fetchmail.service
 %{_unitdir}/cryptobone-fetchmail.timer
 %{_bindir}/activate-cryptobone
-%{_bindir}/cryptobone
+%{_bindir}/cryptobone-email
+%{_bindir}/cryptobone-safewebdrop
 %{_bindir}/external-cryptobone
 %{_bindir}/external-cryptobone-admin
 
@@ -171,9 +177,13 @@ fi
 # might be changed. In particular, this is crucial for the keys subdirectory.
 %{cryptobonedir}
 
-%{_datadir}/applications/cryptobone.desktop
+%{_datadir}/applications/cryptobone-email.desktop
+%{_datadir}/applications/cryptobone-safewebdrop.desktop
 %{_datadir}/applications/external-cryptobone-admin.desktop
 %{_datadir}/icons/default/cryptobone.png
+%{_datadir}/icons/default/logo-cryptobone.png
+%{_datadir}/icons/default/cryptobone-safewebdrop.png
+%{_datadir}/icons/default/logo-cryptobone-safewebdrop.png
 %{_datadir}/icons/default/external-cryptobone-admin.png
 %{_datadir}/icons/default/question-mark.png
 
@@ -190,6 +200,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Fri May 12 2023 Ralf Senderek <innovation@senderek.ie> - 1.6-1
+- Add SafeWebdrop code 
+
 * Thu Apr 13 2023 Ralf Senderek <innovation@senderek.ie> - 1.5.1-1
 - update selinux module and use of the cryptlib package 
 
