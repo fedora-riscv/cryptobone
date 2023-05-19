@@ -1,0 +1,43 @@
+In short, the Crypto Bone is a novel approach to making confidential communication both secure and usable.
+
+While you are writing or reading messages on your Linux computer, the security of your communication
+is always at risk, because malware can affect your computer in many ways. The computer we use day-by-day
+essentially is too complex and too vulnerable to be completely secure.
+
+It is quite obvious that in using a second external device to encrypt your messages, security can be 
+improved considerably. The original idea was to use an autonomous micro computer like the Beagle Bone 
+or the Raspberry Pi to delegate all encryption and key management to a device that can be much more 
+secure than the computer you usually use.
+
+Such a secure, external device can help ordinary users to establish secure communication with other 
+people that is always encrypted.
+
+And at the same time it will make life easier for people, because all message keys are stored in a safe 
+place. Apart from providing a single secret when a conversation with somebody starts, there is no need 
+to keep track of the message keys used to encrypt the messages that are sent out. These keys are updated 
+and managed automatically in a safe manner, so that the user is not required to remember keys or complex 
+passwords to continue the secure communication.
+
+It is your login password that you'll need to run the graphical user interface, because the keys are 
+stored in the memory of a daemon that can only be used with root permissions.
+
+Users don't need any knowledge of cryptography or special skills to operate the Crypto Bone. And they
+still maintain the sole control over the message keys themselves, as it possible to interrupt or reset 
+the initial secret for any communication using the graphical user interface.
+
+Although such a separate, external device is quite useful to secure the database in which message keys 
+are stored, it is also possible to use a carfully designed daemon on the main machine to be used as a 
+local, software-based Crypto Bone. Obviously the local Crypto Bone is less secure than an external device,
+but as a carefully designed daemon process it can protect all message keys against malware threats that 
+don't gain full root privilege on the main machine.
+
+The Crypto Bone makes sure that all messages are encrypted with keys stored locally in a safe place, 
+either inside the local cryptobone daemon on your main computer or in a separate external device, if 
+additional protection of the message key database is required. No third party needs to be trusted to 
+make secure confidential communication happen. It's all under the user's control.
+
+The system updates the message encryption keys with every message exchange, so that only currently used 
+message keys are in the computer's main memory. Past messages have been read already and their decryption
+keys are reliably deleted and forgotten. This mechanism ensures that messages exchanged in the past cannot
+be read, even if the encrypted messages are leaked, because the encryption keys, previously stored in 
+main memory, are long gone and cannot be re-constructed.
