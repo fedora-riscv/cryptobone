@@ -3,7 +3,7 @@
 
 Name:       cryptobone
 Version:    1.6   
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 License:    BSD and Sleepycat and OpenSSL     
@@ -200,6 +200,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Fri May 19 2023 Ralf Senderek <innovation@senderek.ie> - 1.6-2
+- minor bugfix 
+
 * Fri May 12 2023 Ralf Senderek <innovation@senderek.ie> - 1.6-1
 - Add SafeWebdrop code 
 
