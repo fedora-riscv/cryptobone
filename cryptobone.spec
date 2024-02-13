@@ -3,7 +3,7 @@
 
 Name:       cryptobone
 Version:    1.6   
-Release:    3%{?dist}
+Release:    3.rv64%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 License:    BSD and Sleepycat and OpenSSL     
@@ -13,7 +13,7 @@ Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz.
 Source2:    gpgkey-3274CB29956498038A9C874BFBF6E2C28E9C98DD.asc
 Patch1:     fedorapatch
 
-ExclusiveArch: x86_64 ppc64le aarch64
+ExclusiveArch: x86_64 ppc64le aarch64 riscv64
 
 BuildRequires: libbsd-devel
 BuildRequires: gcc
