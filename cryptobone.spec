@@ -3,7 +3,7 @@
 
 Name:       cryptobone
 Version:    1.6   
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 License:    BSD and Sleepycat and OpenSSL     
@@ -13,7 +13,7 @@ Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz.
 Source2:    gpgkey-3274CB29956498038A9C874BFBF6E2C28E9C98DD.asc
 Patch1:     fedorapatch
 
-ExclusiveArch: x86_64 ppc64le aarch64
+ExclusiveArch: x86_64 ppc64le aarch64 riscv64
 
 BuildRequires: libbsd-devel
 BuildRequires: gcc
@@ -200,6 +200,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Wed Mar 20 2024 Jiasheng Zhao <JasenChao@gmail.com> -1.6-6
+- Add riscv64 support
+
 * Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
